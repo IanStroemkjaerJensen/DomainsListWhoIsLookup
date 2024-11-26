@@ -21,13 +21,8 @@ result2 = re.sub(r'(?m)^AI\s+(\w+)(\w*)', r"'AI\1\2',", list_of_names)
 # Generate domain names from the formatted result adding the .com suffix
 domain_names_with_dotcom = [item.strip("' ,") + ".com" for item in result1.splitlines()]
 
-# Generate domain names from the formatted result adding the .org suffix
-domain_names_with_dotorg = [item.strip("' ,") + ".org" for item in result1.splitlines()]
-
 # Print the formatted result
 print(domain_names_with_dotcom)
-
-
 
 def check_domain_availability(domain_name):
     """
@@ -41,7 +36,7 @@ def check_domain_availability(domain_name):
         domain_info = whois.whois(domain_name)
         # If the WHOIS response contains information, it's registered
         if domain_info.status is not None:
-            print(f"Domain registered")
+            print(f" '{domain_name}'is already registered")
             return False
     except Exception:
         # WHOIS library raises an exception if the domain is not registered
@@ -53,6 +48,6 @@ def check_domain_availability(domain_name):
 if __name__ == "__main__":
     for domain in domain_names_with_dotcom:
         check_domain_availability(domain)
-        time.sleep(2) # Waits 2 seconds between lookups to stay within rate limit and not overwork Registrar servers
+        time.sleep(3) # Waits 3 seconds between lookups to stay within rate limit and not overwork Registrar servers
     print("done")
 
